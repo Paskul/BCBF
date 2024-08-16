@@ -1,0 +1,2 @@
+float64 hitratio
+uint32 index
