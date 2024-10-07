@@ -1,7 +1,7 @@
 # Installation
 These packages were built and supported with the following requirements:
 
-- Ubuntu 20.04.6 LTS
+- Ubuntu 22.04
 - ROS 2 Humble Hawksbill
 
 ## Pre-requisites
