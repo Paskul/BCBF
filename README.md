@@ -1,5 +1,9 @@
 # Installation
-test
+These packages were built and supported with the following requirements:
+
+- ROS 2 Humble Hawksbill
+- PX4-Autopilot (and dependencies)
+
 ## Pre-requisites
 test
 ## Containerised Deployement
