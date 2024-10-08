@@ -294,12 +294,77 @@ These Python installs will be needed for our BCBF and CBF, more specifically our
 
 10. **Download and Install BCBF and CBF implementation**
 
-From any point in our Ubuntu install, execute
+From any point in our Ubuntu install, clone this repository:
 
 ```bash
-$ 
+$ git clone https://github.com/Paskul/BCBF.git
 ```
 
+The only useful files exist with folders `belief_cbf` and `occupancy_grid_processor`. Copy these two folders into the ros2_ws/src directory. An `ls` of the src directory should now consist of:
+```bash
+belief_cbf   occupancy_grid_processor   slam_toolbox
+```
+
+We can now properly build these packages with these commands, ensuring we are out of src/ and into our ros2_ws/ folder
+
+```bash
+$ colcon build --packages-select occupancy_grid_processor --symlink-install
+$ colcon build --packages-select belief_cbf --symlink-install
+```
+stderr warnings without fatal failure are expected in building these packages. Running each package may look similar to:
+
+11. **Execute BCBF and CBF implementation**
+
+At this point, alongside the simultaneous execution of expected turtlebot3_gazebo, nav2, slam_toolbox, and rviz; we can visualize and determine the results of our CBF/BCBF code. One more time, from no terminals open, this may look like:
+
+**Terminal 1:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ export TURTLEBOT3_MODEL=burger
+$ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+```
+
+**Terminal 2:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ ros2 launch nav2_bringup navigation_launch.py use_sim_time:=True
+```
+
+**Terminal 3:**
+
+```bash
+$ source ~/ros2_ws/install/setup.bash
+$ ros2 launch slam_toolbox online_async_launch.py use_sim_time:=True
+```
+
+**Terminal 4:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ ros2 run rviz2 rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz
+```
+
+**Terminal 5:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ export TURTLEBOT3_MODEL=burger
+$ ros2 run turtlebot3_teleop teleop_keyboard
+```
+
+**Terminal 6:**
+
+```bash
+$ source ros2_ws/install/setup.bash
+$ ros2 run belief_cbf belief_cbf
+```
+or
+```bash
+$ source ros2_ws/install/setup.bash
+$ ros2 run belief_cbf belief_cbf
+```
 
 # Updating packages and Future work
 
