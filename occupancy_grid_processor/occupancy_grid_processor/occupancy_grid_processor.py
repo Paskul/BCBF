@@ -4,7 +4,7 @@ from nav_msgs.msg import OccupancyGrid, Odometry
 from geometry_msgs.msg import Twist
 import numpy as np
 from scipy.ndimage import distance_transform_edt
-import quadprog
+#import quadprog
 import threading
 from qpsolvers import solve_qp
 from pynput import keyboard
