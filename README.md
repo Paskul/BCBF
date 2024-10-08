@@ -3,11 +3,11 @@
   - [Requirements](#Requirements)
   - [Dependencies](#Dependencies)
   - [Running](#Running)
-- [Step-by-step installation and execution](#Step-by-step installation and execution)
+- [Step-by-step installation and execution](#step-by-step-installation-and-execution)
   - [Prerequisites](#Prerequisites)
-  - [Install ROS2 Humble](#Install ROS2 Humble)
-  - [Final CBF install/running](#Final CBF install/running)
-- [Updating packages and Future work](#Updating packages and Future work)
+  - [Install ROS2 Humble](#install-ros2-humble)
+  - [Final CBF install/running](#final-cbf-installrunning)
+- [Updating packages and Future work](#updating-packages-and-future-work)
 
 
 # Installation
