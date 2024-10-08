@@ -1,4 +1,14 @@
 # Pascals SLAM BCBF work
+- [Installation](#Installation)
+  - [Requirements](#Requirements)
+  - [Dependencies](#Dependencies)
+  - [Running](#Running)
+- [Step-by-step installation and execution](#Step-by-step installation and execution)
+  - [Prerequisites](#Prerequisites)
+  - [Install ROS2 Humble](#Install ROS2 Humble)
+  - [Final CBF install/running](#Final CBF install/running)
+- [Updating packages and Future work](#Updating packages and Future work)
+
 
 # Installation
 ## Requirements
@@ -41,7 +51,11 @@ Then, building our individual CBF/BCBF packages after considering dependencies w
 $ colcon build --packages-select occupancy_grid_processor --symlink-install
 $ colcon build --packages-select belief_cbf --symlink-install
 ```
-stderr warnings without fatal failure are expected in building these packages. Running each package may look similar to:
+stderr warnings without fatal failure are expected in building these packages. 
+
+## Running
+
+Running each package may look similar to:
 
 ```
 $ ros2 run belief_cbf belief_cbf
@@ -291,6 +305,8 @@ $ pip install qpsolvers[open_source_solvers]
 ```
 
 These Python installs will be needed for our BCBF and CBF, more specifically our current CBF implementation, but it will be good to have.
+
+### Final CBF install/running
 
 10. **Download and Install BCBF and CBF implementation**
 
