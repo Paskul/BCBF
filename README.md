@@ -37,9 +37,9 @@ Over the summer, development used `slam_toolbox` as the primary SLAM algorithm t
 
 At this point, we should have the required packages to run a version of SLAM on a Turtlebot3 virtual model for navigation within Gazebo. We should now look to install both solutions to our CBFs/BCBFs made over the Summer. The most finished solution, replicated code of "Control-Barrier-Aided Teleoperation with Visual-Inertial SLAM for Safe MAV Navigation in Complex Environments" by Siqi Zhou, or better known as the `ICRA Paper`, defines safety based on the boundaries of the map of a SLAM algorithm, and should be a finished, or nearly finished solution in ROS2, store in this repo as package `occupancy_grid_processor` (not the best name). 
 
-Secondly, we have a partially made solution to "Belief Control Barrier Functions for Risk-Aware Control", made by Matti Vahs. This is the the solution we wish to replicate most, and is a true BCBF solution for SLAM output, and is shown as package `belief_cbf` (a better name). Notable differences include attempts at conceptually easier optimizers, better estimations of trajectory, and accurate safety estimations. These packages should be downloaded as individual folders, placed in the used `ROS2 workspace` /src folder; built code/examples of which will be mentioned soon. 
+Secondly, we have a partially made solution to "Belief Control Barrier Functions for Risk-Aware Control", made by Matti Vahs. This is the the solution we wish to replicate most, and is a true BCBF solution for SLAM output, and is shown as package `belief_cbf` (a better name). Notable differences include attempts at conceptually easier optimizers, better estimations of trajectory, and accurate safety estimations. These packages should be downloaded as individual folders, placed in the used `ROS2 workspace` `/src` folder; built code/examples of which will be mentioned soon. 
 
-Before building each package, we should deal with all possible dependencies now. Our CBF solution requires packages `qpsolvers` for QP solving, and `pynput` for initial keyboard velocity control, though using something like teleop_twist_keyboard should be used in the future, however managing topic control to ensure that safe velocities are properly communicated. Installing these packages using pip in a fresh Ubuntu install may look like this, including installing pip as:
+Before building each package, we should deal with all possible dependencies now. Our CBF solution requires packages `qpsolvers` for QP solving, and `pynput` for initial keyboard velocity control, though using something like `teleop_twist_keyboard` should be used in the future, however managing topic control to ensure that safe velocities are properly communicated. Installing these packages using `pip` in a fresh Ubuntu install may look like this, including installing `pip` as:
 
 ```bash
 $ sudo apt install python3-dev
@@ -48,7 +48,7 @@ $ pip install pynput
 $ pip install qpsolvers[open_source_solvers]
 ```
 
-Then, building our individual CBF/BCBF packages after considering dependencies within the /ros2_ws folder looks similar to:
+Then, building our individual CBF/BCBF packages after considering dependencies within the `/ros2_ws` folder looks similar to:
 
 ```bash
 $ colcon build --packages-select occupancy_grid_processor --symlink-install
@@ -65,7 +65,7 @@ $ ros2 run belief_cbf belief_cbf
 ```
 For the BCBF, or
 ```
-$ ros2 run belief_cbf belief_cbf
+$ ros2 run occupancy_grid_processor occupancy_grid_processor
 ```
 
 ## Launch simulation nodes
@@ -111,11 +111,13 @@ $ ros2 run turtlebot3_teleop teleop_keyboard
 
 **Terminal 6:**
 ```
+$ source ros2_ws/install/setup.bash
 $ ros2 run belief_cbf belief_cbf
 ```
 or
 ```
-$ ros2 run belief_cbf belief_cbf
+$ source ros2_ws/install/setup.bash
+$ ros2 run occupancy_grid_processor occupancy_grid_processor
 ```
 
 # Step-by-step installation and execution
@@ -194,13 +196,10 @@ In our single, sourced, and ready terminal, install our necessary packages:
 
 ```bash
 $ sudo apt update
-
 $ sudo apt install ros-humble-rviz2
-
 $ sudo apt install ros-humble-turtlebot3
 $ sudo apt install ros-humble-turtlebot3-msgs
 $ sudo apt install ros-humble-turtlebot3-simulations
-
 $ sudo apt install ros-humble-gazebo-ros-pkgs
 ```
 
@@ -300,7 +299,7 @@ Following the prompt in `teleop_keyboard`, we should now notice the `burger` tur
 
 9. **Install dependencies for BCBF and CBF packages**
 
-After running and validifying the builds of Gazebo, slam_toolbox, and turtlebot3, we can now build the dependencies of our CBF and BCBF packages. Close existing terminals, and in a new terminal, execute:
+After running and validifying the builds of `Gazebo`, `slam_toolbox`, and `turtlebot3`, we can now build the dependencies of our CBF and BCBF packages. Close existing terminals, and in a new terminal, execute:
 
 ```bash
 $ sudo apt install python3-dev
@@ -321,12 +320,12 @@ From any point in our Ubuntu install, clone this repository:
 $ git clone https://github.com/Paskul/BCBF.git
 ```
 
-The only useful files exist with folders `belief_cbf` and `occupancy_grid_processor`. Copy these two folders into the ros2_ws/src directory. An `ls` of the src directory should now consist of:
+The only useful files exist with folders `belief_cbf` and `occupancy_grid_processor`. Copy these two folders into the `/ros2_ws/src` directory. An `ls` of the `/src` directory should now consist of:
 ```bash
 belief_cbf   occupancy_grid_processor   slam_toolbox
 ```
 
-We can now properly build these packages with these commands, ensuring we are out of src/ and into our ros2_ws/ folder
+We can now properly build these packages with these commands, ensuring we are out of `/src` and into our `/ros2_ws` folder
 
 ```bash
 $ colcon build --packages-select occupancy_grid_processor --symlink-install
@@ -336,7 +335,7 @@ stderr warnings without fatal failure are expected in building these packages. R
 
 11. **Execute BCBF and CBF implementation**
 
-At this point, alongside the simultaneous execution of expected turtlebot3_gazebo, nav2, slam_toolbox, and rviz; we can visualize and determine the results of our CBF/BCBF code. One more time, from no terminals open, this may look like:
+At this point, alongside the simultaneous execution of expected `turtlebot3_gazebo`, `nav2`, `slam_toolbox`, and `rviz`; we can visualize and determine the results of our CBF/BCBF code. One more time, from no terminals open, this may look like:
 
 **Terminal 1:**
 
@@ -384,7 +383,7 @@ $ ros2 run belief_cbf belief_cbf
 or
 ```bash
 $ source ros2_ws/install/setup.bash
-$ ros2 run belief_cbf belief_cbf
+$ ros2 run occupancy_grid_processor occupancy_grid_processor
 ```
 
 # Updating packages and Future work
