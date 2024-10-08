@@ -6,6 +6,7 @@
 - [Step-by-step installation and execution](#step-by-step-installation-and-execution)
   - [Prerequisites](#Prerequisites)
   - [Install ROS2 Humble](#install-ros2-humble)
+  - [Testing simulation environment setup](#Testing-simulation-environment-setup)
   - [Final CBF install/running](#final-cbf-installrunning)
 - [Updating packages and Future work](#updating-packages-and-future-work)
 
@@ -182,6 +183,8 @@ If we ever need to source a terminal to its original ROS2 install, we can use
 ```bash
 $ source /opt/ros/humble/setup.bash
 ```
+
+### Testing simulation environment setup
 
 6. **Install packages for slam_toolbox testing**
 
