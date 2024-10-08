@@ -24,9 +24,82 @@ Over the summer, development used `slam_toolbox` as the primary SLAM algorithm t
 
 - [Slam_toolbox](https://github.com/SteveMacenski/slam_toolbox/tree/humble)
 
-At this point, we should have the required packages to run a version of SLAM on a Turtlebot3 virtual model for navigation within Gazebo. We should now look to install both solutions to our CBFs/BCBFs made over the Summer. The most finished solution, replicated code of "Control-Barrier-Aided Teleoperation with Visual-Inertial SLAM for Safe MAV Navigation in Complex Environments" by Siqi Zhou, or better known as the `ICRA Paper`, defines safety based on the boundaries of the map of a SLAM algorithm, and should be a finished, or nearly finished solution in ROS2, store in this repo as package `occupancy_grid_processor` (not the best name). Secondly, we have a partially made solution to "Belief Control Barrier Functions for Risk-Aware Control", made by Matti Vahs. This is the the solution we wish to replicate most, and is a true BCBF solution for SLAM output, and is shown as package `belief_cbf` (a better name). Notable differences include attempts at conceptually easier optimizers, better estimations of trajectory, and accurate safety estimations. These packages should be downloaded as individual folders, placed in the used `ROS2 workspace` /src folder, and built; code/examples of which will be mentioned soon.
+At this point, we should have the required packages to run a version of SLAM on a Turtlebot3 virtual model for navigation within Gazebo. We should now look to install both solutions to our CBFs/BCBFs made over the Summer. The most finished solution, replicated code of "Control-Barrier-Aided Teleoperation with Visual-Inertial SLAM for Safe MAV Navigation in Complex Environments" by Siqi Zhou, or better known as the `ICRA Paper`, defines safety based on the boundaries of the map of a SLAM algorithm, and should be a finished, or nearly finished solution in ROS2, store in this repo as package `occupancy_grid_processor` (not the best name). Secondly, we have a partially made solution to "Belief Control Barrier Functions for Risk-Aware Control", made by Matti Vahs. This is the the solution we wish to replicate most, and is a true BCBF solution for SLAM output, and is shown as package `belief_cbf` (a better name). Notable differences include attempts at conceptually easier optimizers, better estimations of trajectory, and accurate safety estimations. These packages should be downloaded as individual folders, placed in the used `ROS2 workspace` /src folder; built code/examples of which will be mentioned soon. 
+
+Before building each package, it's best that we deal with all possible dependencies now. Our CBF solution requires packages `qpsolvers` for QP solving, and `pynput` for initial keyboard velocity control, though using something like teleop_twist_keyboard should be used in the future, however managing topic control to ensure that safe velocities are properly communicated. Installing these packages using pip in a fresh Ubuntu install may look like this, including installing pip as:
+
+```bash
+$ sudo apt install python3-dev
+$ sudo apt install python3-pip
+$ pip install pynput
+$ pip install qpsolvers[open_source_solvers]
+```
+
+Then, building our individual CBF/BCBF packages after considering dependencies within the /ros2_ws folder looks similar to:
+
+```bash
+$ colcon build --packages-select occupancy_grid_processor --symlink-install
+$ colcon build --packages-select belief_cbf --symlink-install
+```
+stderr warnings without fatal failure are expected in building these packages. Running each package may look similar to:
+
+```
+$ ros2 run belief_cbf belief_cbf
+```
+For the BCBF, or
+```
+$ ros2 run belief_cbf belief_cbf
+```
 
 ## Launch simulation nodes
+
+To test and confirm that we installed it correctly, we can make new terminals for each node and test our BCBF/CBF solutions with `slam_toolbox` and examine its output by executing these commands:
+
+**Terminal 1:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ export TURTLEBOT3_MODEL=burger
+$ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+```
+
+**Terminal 2:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ ros2 launch nav2_bringup navigation_launch.py use_sim_time:=True
+```
+
+**Terminal 3:**
+
+```bash
+$ source ~/ros2_ws/install/setup.bash
+$ ros2 launch slam_toolbox online_async_launch.py use_sim_time:=True
+```
+
+**Terminal 4:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ ros2 run rviz2 rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz
+```
+
+**Terminal 5:**
+
+```bash
+$ source /opt/ros/humble/setup.bash
+$ export TURTLEBOT3_MODEL=burger
+$ ros2 run turtlebot3_teleop teleop_keyboard
+```
+
+**Terminal 6:**
+```
+$ ros2 run belief_cbf belief_cbf
+```
+or
+```
+$ ros2 run belief_cbf belief_cbf
+```
 
 # Step-by-step installation and execution
 To exactly replicate our environment from a new install of Ubuntu Linux - Jammy Jellyfish (22.04), follow these steps:
@@ -207,4 +280,8 @@ $ ros2 run turtlebot3_teleop teleop_keyboard
 Following the prompt in `teleop_keyboard`, we should now notice the `burger` turtlebot3 model move around the simulation in `gazebo`, and in `rviz2`. The `rviz2` example should be presenting the SLAM map, as well as robot localization, as we are getting updates from the map. This map is what we can reference in our changes.
 
 
-# Updating
+# Updating packages and Future work
+
+We are already aware of the main issue of `slam_toolbox` being unable provide meaningful output in long-term development. From this issue, we nee 
+
+
