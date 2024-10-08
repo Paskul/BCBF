@@ -297,6 +297,8 @@ $ ros2 run turtlebot3_teleop teleop_keyboard
 
 Following the prompt in `teleop_keyboard`, we should now notice the `burger` turtlebot3 model move around the simulation in `gazebo`, and in `rviz2`. The `rviz2` example should be presenting the SLAM map, as well as robot localization, as we are getting updates from the map.
 
+### Final CBF install/running
+
 9. **Install dependencies for BCBF and CBF packages**
 
 After running and validifying the builds of `Gazebo`, `slam_toolbox`, and `turtlebot3`, we can now build the dependencies of our CBF and BCBF packages. Close existing terminals, and in a new terminal, execute:
@@ -309,8 +311,6 @@ $ pip install qpsolvers[open_source_solvers]
 ```
 
 These Python installs will be needed for our BCBF and CBF, more specifically our current CBF implementation, but it will be good to have.
-
-### Final CBF install/running
 
 10. **Download and Install BCBF and CBF implementation**
 
