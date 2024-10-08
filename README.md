@@ -282,6 +282,10 @@ Following the prompt in `teleop_keyboard`, we should now notice the `burger` tur
 
 # Updating packages and Future work
 
-We are already aware of the main issue of `slam_toolbox` being unable provide meaningful output in long-term development. From this issue, we nee 
+We are already aware of the main issue of `slam_toolbox` being unable to provide meaningful output in long-term development. From this issue, we need to either develop changes within `slam_toolbox` to properly display the probabilistic cells missing (already attempted for weeks) or choose to use a new SLAM algorithm entirely. Promising algorithms to explore could RTAB-Map, or ORB-SLAM2/3.
 
+Once a new SLAM algorithm that sends probabilistic 2D occupancy grids is chosen, we need to properly implement the BCBF, reflecting most of the Matti Vahs paper, into `belief_cbf`, or create a new package entirely. Current `belief_cbf` should correctly calculate safety, and should present a partial QP solver + other ideas, but here is when time became the biggest constraint and needs further development for proper implementation.
 
+Topics need to be reconnected to receive current/desired twist input (velocities) and incorporate the CBF filter that then sends the filtered twist command to the robot itself. This process isn't entirely incorporated in the current solutions, where we see the CBF replication incorporating its own keyboard to bypass this development requirement, breaking lots of expectations about keyboard input after the program has ended (which you might see in testing/development). Otherwise, belief_cbf should not incorporate keyboard input yet and should be properly designed to incorporate external topic input and handle the proper output.
+
+QP Solver/optimization problems I truthfully cannot confirm as "the best possible" framework and setup. These should be reexamined and worked on as correctly incorporating gradient and other necessary information. Speaking of gradient, the `belief_cbf` was last being worked on as improving the gradient calculation, where my own attempts were not sufficient enough for what was needed in the QP solver. This resulted in solutions that took too long to compute, giving incorrect results, or in most cases, never solving.
